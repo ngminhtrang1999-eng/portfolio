@@ -1,0 +1,13 @@
+# Normalise line endings in the repository (CI builds on Linux, editing happens
+# on Windows). Files keep their native endings in the working tree.
+* text=auto
+
+# Binary assets must never be converted.
+*.pdf binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.ico binary
+*.gif binary
+*.woff binary
+*.woff2 binary

@@ -1,0 +1,70 @@
+---
+import { siteConfig } from "../config";
+
+const hasCertifications =
+  siteConfig.certifications && siteConfig.certifications.length > 0;
+---
+
+{
+  hasCertifications && (
+    <section id="certifications" class="p-8 sm:p-12 md:p-16 lg:p-24">
+      <div>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
+          <div class="lg:col-span-4">
+            <h2 class="text-3xl sm:text-4xl md:text-5xl xl:text-7xl font-bold text-gray-900">
+              Courses
+            </h2>
+            <div
+              class="w-[75px] h-[5px] mt-2 rounded-full"
+              style={`background-color: ${siteConfig.accentColor}`}
+            />
+            <p class="mt-4 text-sm text-gray-500">
+              Certifications &amp; self-directed learning
+            </p>
+          </div>
+
+          <div class="lg:col-span-8">
+            <div class="space-y-4">
+              {siteConfig.certifications.map((cert) => {
+                const Component = cert.link ? "a" : "div";
+                const linkProps = cert.link
+                  ? {
+                      href: cert.link,
+                      target: "_blank",
+                      rel: "noopener noreferrer",
+                    }
+                  : {};
+
+                return (
+                  <Component
+                    {...linkProps}
+                    class={`flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-4 bg-white rounded-lg border border-gray-100 shadow-sm px-4 py-3 sm:px-5 sm:py-4 transition-all duration-300 ${
+                      cert.link
+                        ? "hover:shadow-md hover:border-gray-200 hover:-translate-y-0.5"
+                        : ""
+                    }`}
+                  >
+                    <div>
+                      <h3 class="text-base sm:text-lg font-semibold text-gray-900">
+                        {cert.name}
+                      </h3>
+                      <p
+                        class="text-sm sm:text-base"
+                        style={`color: ${siteConfig.accentColor}`}
+                      >
+                        {cert.issuer}
+                      </p>
+                    </div>
+                    <span class="text-xs sm:text-sm text-gray-500 sm:whitespace-nowrap">
+                      {cert.date}
+                    </span>
+                  </Component>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}

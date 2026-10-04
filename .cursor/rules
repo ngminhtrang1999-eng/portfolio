@@ -1,0 +1,38 @@
+# DevPortfolio — Cursor rules
+
+The canonical, complete guide for this repository is **[../AGENTS.md](../AGENTS.md)**.
+Read it before making changes. The essentials, so this file is useful on its own:
+
+## The one rule
+All **content** lives in `src/config.ts`. Edit that file for wording, projects,
+awards, certifications, and the CV link. Only edit `src/components/*.astro` when you
+need a new *kind* of section or a visual change.
+
+## Project context
+An Astro 5 + Tailwind CSS v4 static single-page portfolio, used for internship/job
+interviews and scholarship applications. No database, no CMS, no tests.
+
+## Hard invariants
+1. Wrap local asset URLs in `withBase()` from `src/utils/url.ts` — GitHub Pages
+   serves project repos from a sub-path. `http(s)://`, `mailto:`, `tel:` pass through.
+2. Every section is guarded by `const hasX = siteConfig.x && siteConfig.x.length > 0;`
+   so deleting a config array removes the section. Keep that pattern.
+3. When adding a section, add its nav link to **both** `Header.astro` and
+   `Footer.astro`, guarded the same way.
+4. Use `siteConfig.accentColor` for themed elements. No second accent color.
+5. Tailwind utility classes only; match the responsive breakpoints of neighbouring
+   components (`sm:` `md:` `lg:` `xl:`).
+6. Section layout convention: `<section id="…" class="p-8 sm:p-12 md:p-16 lg:p-24">`
+   → `grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start` with the heading
+   in `lg:col-span-4` and content in `lg:col-span-8`.
+
+## Commands
+```bash
+npm run dev      # dev server at http://localhost:4321
+npm run build    # run before every push; must exit 0
+npm run preview  # preview the production build
+```
+
+## Before you call a change done
+`npm run build` exits 0, the new content appears in `dist/index.html`, and no
+`— replace me` placeholder remains in the section you touched.

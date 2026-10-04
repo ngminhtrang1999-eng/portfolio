@@ -1,0 +1,45 @@
+name: Deploy to GitHub Pages
+
+on:
+  # Runs every time you push to `main`.
+  push:
+    branches: [main]
+  # Lets you trigger a deploy by hand from the Actions tab on GitHub.
+  workflow_dispatch:
+
+# Allow the job to clone the repo and publish a Pages deployment.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Only one deploy at a time; newer pushes cancel queued (not running) builds.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout your repository using git
+        uses: actions/checkout@v7
+      - name: Install, build, and upload your site
+        uses: withastro/action@v6
+        # with:
+        #   node-version: 24 # Node version used to build. Defaults to 24.
+        #   path: . # Root of your Astro project inside the repo. (optional)
+        # env:
+        #   SITE_URL: https://your-domain.com # only needed for a custom domain
+        #   BASE_PATH: /
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
