@@ -135,6 +135,31 @@ site tự động cập nhật** — bạn không phải làm gì thêm.
 > repo của bạn là dạng `username.github.io` hay dạng thư mục con `/portfolio`,
 > nên site chạy đúng trong cả hai trường hợp.
 
+### Cách nhanh bằng GitHub CLI (thay cho 3 bước trên)
+
+Nếu đã cài [GitHub CLI](https://cli.github.com/) (`winget install --id GitHub.cli -e`),
+chỉ cần 3 lệnh:
+
+```bash
+gh auth login                                          # đăng nhập 1 lần qua trình duyệt
+gh repo create <username>/portfolio --public --source=. --remote=origin --push
+gh api -X POST repos/<username>/portfolio/pages -f build_type=workflow
+```
+
+- Lệnh 1 mở trình duyệt để uỷ quyền. **Phải có scope `workflow`**, nếu không GitHub
+  sẽ chặn push file `.github/workflows/deploy.yml`. Kiểm tra bằng `gh auth status`.
+- Lệnh 2 tạo repo, gắn remote `origin` và push nhánh `main` trong một lần.
+- Lệnh 3 bật Pages với Source = **GitHub Actions** (tương đương thao tác trong Settings).
+
+Sau đó xem tiến trình deploy:
+
+```bash
+gh run list --limit 5
+gh run watch
+```
+
+Site sẽ ở `https://<username>.github.io/portfolio/`.
+
 ---
 
 ## 4. Việc cần làm tiếp
