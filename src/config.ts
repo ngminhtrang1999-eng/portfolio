@@ -13,23 +13,36 @@
  *
  *  See AGENTS.md for a step-by-step "how do I add a new project?" guide.
  *
- *  STILL OPEN (as of this edit — nothing here is invented, so gaps stay gaps):
- *   - resumeUrl is "" (button hidden) until the real CV PDF replaces the
- *     placeholder in public/resume.pdf — see section 2.
- *   - No awards/scholarships yet, so that array is commented out — section 6.
- *   - Bullets and project descriptions carry no numbers yet, because the CV
- *     does not have any. Add real metrics as soon as the CV update is ready.
+ *  STILL OPEN / KNOWN GAPS (nothing here is invented, so gaps stay gaps):
+ *   - The CSoNet 2026 paper has no DOI yet, so the publication card has no link
+ *     — add `link` once Springer publishes the proceedings.
+ *   - Aimesoft client work is under NDA, so those projects have no public link
+ *     and carry no metrics — only the technologies and what the system does.
+ *   - No awards/scholarships yet, so that array is commented out — section 7.
  * ============================================================================
  */
+
+/**
+ * A peer-reviewed publication. `link` stays optional until a DOI/URL exists.
+ */
+export type Publication = {
+  title: string;
+  authors: string;
+  venue: string;
+  status?: string;
+  date: string;
+  description?: string;
+  link?: string;
+};
 
 export const siteConfig = {
   // --------------------------------------------------------------------------
   // 1. IDENTITY
   // --------------------------------------------------------------------------
   name: "Nguyen Huu Minh Trang",
-  title: "AI Software Developer · Computer Vision & Generative AI",
+  title: "AI Engineer · RAG, LLM Evaluation & Computer Vision",
   description:
-    "Portfolio of Nguyen Huu Minh Trang — AI engineering, computer vision, and explainable AI for medical imaging.",
+    "Portfolio of Nguyen Huu Minh Trang — AI engineering: retrieval-augmented generation, LLM-judge evaluation, and computer vision for industrial clients.",
 
   /** Accent color used site-wide (heading rules, links, badges, highlights). */
   accentColor: "#1d4ed8",
@@ -38,19 +51,19 @@ export const siteConfig = {
   // 2. RESUME / CV
   // --------------------------------------------------------------------------
   /**
-   * Put your CV PDF in the `public/` folder and reference it as "/resume.pdf".
-   * A full external link (Google Drive, Dropbox) works too — use the whole
-   * "https://..." URL.
+   * Either a local file under `public/` (e.g. "/resume.pdf") or a full external
+   * "https://..." URL; `withBase()` passes absolute URLs through untouched.
    * Set this to "" (empty string) to hide the Download CV button entirely.
    *
-   * TEMPORARILY HIDDEN: `public/resume.pdf` is still the 1.2 KB template
-   * placeholder, so a recruiter clicking the button would download a blank PDF.
-   * Once your real CV is ready, either:
-   *   1. copy the PDF over `public/resume.pdf` (keep that exact filename), then
-   *   2. change the line below back to  resumeUrl: "/resume.pdf",
-   * For a Google Drive link, put the full "https://..." URL there instead.
+   * LIVE: the CV is built from `CV/resume.tex` (pdflatex) and copied to
+   * `public/resume.pdf`, so it is version-controlled and always in sync with
+   * the source. Rebuild + copy after every edit to the .tex file.
+   *   pdflatex -interaction=nonstopmode CV/resume.tex
+   *   copy CV\resume.pdf public\resume.pdf
+   * An earlier Google Drive copy is no longer used; keep it as a fallback by
+   * pasting the full "https://..." URL here if the local file ever 404s.
    */
-  resumeUrl: "",
+  resumeUrl: "/resume.pdf",
 
   // --------------------------------------------------------------------------
   // 3. CONTACT LINKS — every field is optional; remove one to hide its icon.
@@ -65,7 +78,7 @@ export const siteConfig = {
   // 4. ABOUT — 2 to 4 sentences. Lead with what you build and what you want.
   // --------------------------------------------------------------------------
   aboutMe:
-    "I am an AI software developer and a master's student in Computer Science, specialising in computer vision and generative AI. At Aimesoft I build 2D AutoCAD automation tools and computer-vision models for identification, re-identification, and multi-object tracking; before that I worked on RAG pipelines at FPT AI Center and on explainable AI for lung-image classification at COTAI. I care about models that are both explainable and deployable, and I am looking for research and engineering work where machine learning reaches real users.",
+    "I am an AI engineer at Aimesoft and a master's researcher in retrieval-augmented generation for literary English–Vietnamese translation. My first-author paper — a component-level ablation of a dynamic RAG pipeline — was accepted at CSoNet 2026 (Springer LNCS), and it pairs the translation system with an LLM-judge evaluation framework checked against a blind two-rater human study. At Aimesoft I build computer-vision systems for Japanese clients: multi-camera people counting with YOLOX, FastReID and ByteTrack, and AutoCAD drawing automation with FastAPI and ezdxf. I care about models that measure honestly and reach real users.",
 
   /** Short skill pills shown under the About text. Keep to ~10-14 items. */
   skills: [
@@ -75,14 +88,14 @@ export const siteConfig = {
     "TensorFlow",
     "Scikit-learn",
     "OpenCV",
+    "Computer Vision",
+    "LLMs & RAG",
+    "LLM-as-judge Evaluation",
+    "FastAPI",
     "Docker",
     "Git",
-    "MongoDB",
-    "AutoHotKey",
-    "Computer Vision",
-    "Deep Learning",
-    "LLMs & RAG",
-    "Graph Neural Networks",
+    "GitLab CI",
+    "LaTeX",
   ],
 
   // --------------------------------------------------------------------------
@@ -105,6 +118,20 @@ export const siteConfig = {
    * throughput, time saved, number of patients screened…) when they exist.
    */
   projects: [
+    {
+      name: "DynamicRAG — Literary Translation Pipeline & Judge Evaluation",
+      description:
+        "Master's thesis and first-author CSoNet 2026 paper: dynamic retrieval-augmented English→Vietnamese literary translation on an 8B open model, combining a translation memory over LaBSE embeddings, a typed hierarchical glossary, coreference-aware retrieval with fastcoref, and a deterministic name/script hygiene layer. I also built the evaluation stack — reference-based pairwise LLM judging with candidate-order swapping, source-cluster bootstrap intervals, Holm-corrected randomization tests, and a blind two-rater human study (n=501) — which showed the full pipeline lifting the decisive win rate against Google Translate from 20.0% to 38.2%.",
+      skills: [
+        "Python",
+        "RAG",
+        "LaBSE",
+        "fastcoref",
+        "LLM-as-judge",
+        "Cluster bootstrap",
+        "LaTeX",
+      ],
+    },
     {
       name: "ArtFreak — AI People Counting & Zone Analytics",
       description:
@@ -166,7 +193,25 @@ export const siteConfig = {
   ],
 
   // --------------------------------------------------------------------------
-  // 6. AWARDS & COMPETITIONS — olympiads, hackathons, scholarships, honors.
+  // 6. PUBLICATIONS — peer-reviewed papers. The section hides when empty.
+  //    `link` is optional: add it once Springer publishes the proceedings.
+  // --------------------------------------------------------------------------
+  publications: <Publication[]>[
+    {
+      title:
+        "Component-Level Ablation of Dynamic Retrieval-Augmented Generation for English–Vietnamese Literary Translation",
+      authors: "H-M-T. Nguyen (first author), P. Paderno, D-L. Vu",
+      venue:
+        "CSoNet 2026 — International Conference on Computational Science and Network Intelligence (Springer LNCS)",
+      status: "Accepted, to appear",
+      date: "2026",
+      description:
+        "Staged component ablation of a dynamic RAG pipeline for literary English→Vietnamese translation on an 8B open model: more than 12,000 pairwise LLM judgments, a blind two-rater human study (n=501), and a cross-family judge check. The full pipeline raised the decisive win rate against Google Translate from 20.0% to 38.2%, while no individual component effect reached significance and a random few-shot baseline nearly matched similarity-based retrieval.",
+    },
+  ],
+
+  // --------------------------------------------------------------------------
+  // 7. AWARDS & COMPETITIONS — olympiads, hackathons, scholarships, honors.
   //    Removed: the CV lists no awards yet. Add this array back (shape below)
   //    and the section plus its navigation link reappear automatically.
   // --------------------------------------------------------------------------
@@ -182,7 +227,7 @@ export const siteConfig = {
   // ],
 
   // --------------------------------------------------------------------------
-  // 7. EXPERIENCE — internships, part-time work, research, teaching.
+  // 8. EXPERIENCE — internships, part-time work, research, teaching.
   //    Delete this whole array if you have none yet; the section will hide.
   // --------------------------------------------------------------------------
   experience: [
@@ -226,7 +271,7 @@ export const siteConfig = {
   ],
 
   // --------------------------------------------------------------------------
-  // 8. EDUCATION — newest first.
+  // 9. EDUCATION — newest first.
   // --------------------------------------------------------------------------
   education: [
     {
@@ -235,7 +280,8 @@ export const siteConfig = {
       dateRange: "Aug 2023 - Present",
       achievements: [
         "Specialisation: Artificial Intelligence and Computer Vision.",
-        "Research interests: YOLOv11 optimisation for real-time detection (pruning, quantisation), explainable AI in medical imaging, and diffusion models with Transformer-based backbones.",
+        "Thesis: component-level ablation of dynamic retrieval-augmented generation for English–Vietnamese literary translation.",
+        "First-author paper accepted at CSoNet 2026 (Springer LNCS).",
       ],
     },
     {
@@ -251,7 +297,7 @@ export const siteConfig = {
   ],
 
   // --------------------------------------------------------------------------
-  // 9. COURSES & CERTIFICATIONS — online courses, certificates, languages.
+  // 10. COURSES & CERTIFICATIONS — online courses, certificates, languages.
   //    Delete this array to hide the section.
   // --------------------------------------------------------------------------
   certifications: [

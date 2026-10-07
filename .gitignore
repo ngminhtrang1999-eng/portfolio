@@ -11,6 +11,18 @@ node_modules/
 # scratch space (private repo clones, research notes — never publish)
 .tmp/
 
+# career-ops job-search agent (separate git repo, contains private CV data)
+career-ops/
+
+# LaTeX build artifacts from CV/ (the .tex, .cls and .pdf are tracked)
+CV/*.aux
+CV/*.log
+CV/*.out
+CV/*.png
+
+# private planning notes (career plan, salary, reading roadmap — not for publication)
+docs/
+
 # logs
 npm-debug.log*
 yarn-debug.log*

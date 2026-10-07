@@ -2,6 +2,8 @@
 import { siteConfig } from "../config";
 
 const hasProjects = siteConfig.projects && siteConfig.projects.length > 0;
+const hasPublications =
+  siteConfig.publications && siteConfig.publications.length > 0;
 const hasAwards = siteConfig.awards && siteConfig.awards.length > 0;
 const hasExperience = siteConfig.experience && siteConfig.experience.length > 0;
 const hasEducation = siteConfig.education && siteConfig.education.length > 0;
@@ -157,6 +159,16 @@ const { email, linkedin, github, twitter } = siteConfig.social ?? {};
                 class="text-sm text-gray-600 hover:text-gray-800 transition-colors"
               >
                 Projects
+              </a>
+            )
+          }
+          {
+            hasPublications && (
+              <a
+                href="#publications"
+                class="text-sm text-gray-600 hover:text-gray-800 transition-colors"
+              >
+                Publications
               </a>
             )
           }

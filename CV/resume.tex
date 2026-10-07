@@ -1,0 +1,125 @@
+\documentclass{resume} % Custom class in resume.cls (10pt, A4)
+
+\usepackage[a4paper,left=0.45in,top=0.22in,right=0.45in,bottom=0.22in]{geometry}
+\usepackage{hyperref}
+\usepackage{amssymb}
+\usepackage{xcolor}
+\usepackage{tabularx}
+\hypersetup{
+  colorlinks   = true,
+  urlcolor     = blue,
+  linkcolor    = blue,
+  citecolor    = blue
+}
+\newcommand{\tab}[1]{\hspace{.2667\textwidth}\rlap{#1}}
+\newcommand{\itab}[1]{\hspace{0em}\rlap{#1}}
+
+% Second column of the skills table wraps instead of running off the right
+% margin (a plain tabular overflowed and clipped text at the page edge).
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+
+% Tighten the vertical rhythm of resume.cls so the CV fits on a single page.
+\def\sectionskip{\vspace{-0.1em}}
+\def\sectionlineskip{\vspace{-0.2em}}
+\def\addressskip{\vspace{0.1em}}
+\def\nameskip{\smallskip}
+
+%----------------------------------------------------------------------------------------
+%	HEADER
+%----------------------------------------------------------------------------------------
+
+\name{Nguyen Huu Minh Trang}
+\address{(+84) 913 871 383 \(\diamond\) \href{mailto:ngminhtrang1999@gmail.com}{ngminhtrang1999@gmail.com}}
+\address{Ho Chi Minh City, Vietnam \(\diamond\) \href{https://www.linkedin.com/in/trang-minh-082bb5175/}{linkedin} \(\diamond\) \href{https://github.com/ngminhtrang1999-eng}{github} \(\diamond\) \href{https://ngminhtrang1999-eng.github.io/portfolio/}{portfolio}}
+
+\begin{document}
+
+%----------------------------------------------------------------------------------------
+%	SUMMARY
+%----------------------------------------------------------------------------------------
+
+\begin{rSection}{Summary}
+AI engineer with one year of production experience in computer vision and generative AI, and a master's researcher in retrieval-augmented translation --- first-author paper accepted at CSoNet 2026 (Springer LNCS). I ship models as working services: detection, re-identification and tracking on Dockerised GPU workers, FastAPI automation, and an LLM-judge evaluation framework. Open to AI engineering work in Vietnam or remotely.
+\end{rSection}
+
+%----------------------------------------------------------------------------------------
+%	EXPERIENCE
+%----------------------------------------------------------------------------------------
+
+\begin{rSection}{Experience}
+
+\begin{rSubsection}{Aimesoft}{Oct 2025 -- Present}{AI Software Developer -- Computer Vision, Automation, Docker}{Ho Chi Minh City, Vietnam}
+\item Delivered two client systems end to end for Japanese clients (detailed under Projects): a multi-camera people-counting product, where I own the computer-vision core, and an AutoCAD drawing-generation service. Client work is under NDA.
+\item Own the delivery path: Dockerised GPU workers, MySQL/S3 storage, preview/review APIs, GitLab CI packaging and vision prototyping.
+\end{rSubsection}
+
+\begin{rSubsection}{FPT AI Center}{Oct 2024 -- Jan 2025}{Intern -- Generative AI, LLMs}{Vietnam}
+\item Built RAG pipelines on Claude Haiku 3.5 for question-answering systems, and researched contradiction resolution in Japanese--English translation.
+\end{rSubsection}
+
+\begin{rSubsection}{COTAI -- Center of Talent in AI}{Jul 2022 -- Dec 2022}{AI Trainee -- Machine Learning \& Computer Vision}{Vietnam}
+\item Applied GradCAM to lung-image classification, and trained CNNs and diffusion models with Transformer backbones.
+\end{rSubsection}
+
+\end{rSection}
+
+%----------------------------------------------------------------------------------------
+%	PUBLICATIONS
+%----------------------------------------------------------------------------------------
+
+\begin{rSection}{Publications}
+
+{\bf H-M-T. Nguyen}, P. Paderno, D-L. Vu. \textbf{Component-Level Ablation of Dynamic Retrieval-Augmented Generation for English--Vietnamese Literary Translation.} \textit{CSoNet 2026} (Springer LNCS). Accepted, to appear, Nov 2026.
+\smallskip
+
+{\textit{First author.}} Staged component ablation on an 8B open model with more than 12{,}000 pairwise LLM judgments and a blind two-rater human study ($n{=}501$); the pipeline raised the decisive win rate against Google Translate from 20.0\% to 38.2\%.
+
+\end{rSection}
+
+%----------------------------------------------------------------------------------------
+%	PROJECTS
+%----------------------------------------------------------------------------------------
+
+\begin{rSection}{Projects}
+
+{\bf DynamicRAG -- LLM Translation Pipeline \& Judge Evaluation Framework} \hfill {\em 2025 -- 2026} \\
+{\textit{Master's thesis, VNUHCM -- UIT}} \\
+Dynamic retrieval-augmented translation of literary English into Vietnamese on an 8B open model: translation memory over LaBSE embeddings, typed glossary, coreference-aware retrieval with fastcoref, and a name/script hygiene layer. I also built its evaluation stack --- pairwise LLM judging with candidate-order swapping, cluster-bootstrap intervals, Holm correction and a blind human study.\vspace{0.3em}
+
+{\bf ArtFreak -- AI People Counting \& Zone Analytics} \hfill {\em 2025 -- Present} \\
+Multi-camera people counting turning event and showroom footage into hourly visitor metrics (zone occupancy, line-in/line-out, rotation, dwell time). I built the YOLOX detection, FastReID/Swin-Base re-identification and ByteTrack/Kalman tracking, deployed as Dockerised GPU workers.\vspace{0.3em}
+
+{\bf Nishio -- AutoCAD DXF/DWG Drawing Generation} \hfill {\em 2025 -- Present} \\
+Generates complete interior drawing sets (A3 presentation, A1 planning, A2 standard frame) from room geometry and furniture catalogues, replacing manual drafting. I built the FastAPI + ezdxf backend, the DXF/DWG export, and the Docker/GitLab CI packaging.
+
+\end{rSection}
+
+%----------------------------------------------------------------------------------------
+%	EDUCATION
+%----------------------------------------------------------------------------------------
+
+\begin{rSection}{Education}
+
+{\bf VNUHCM -- University of Information Technology (UIT)} \hfill {\em Aug 2023 -- Present} \\
+{\textit{Master's Student -- Computer Science (Artificial Intelligence \& Computer Vision)}} \\
+Thesis: component-level ablation of dynamic RAG for EN--VI literary translation (first-author paper, CSoNet 2026).\smallskip
+
+{\bf VNUHCM -- University of Science $\times$ Auckland University of Technology} \hfill {\em 2018 -- 2022} \\
+{\textit{B.A., Computer \& Information Science} -- GPA: 3.94/4.0}
+
+\end{rSection}
+
+%----------------------------------------------------------------------------------------
+%	SKILLS & LANGUAGES
+%----------------------------------------------------------------------------------------
+
+\begin{rSection}{Skills \& Languages}
+\begin{tabularx}{\textwidth}{ @{} >{\bfseries}l @{\hspace{4ex}} L @{} }
+Languages: & Python (primary), C/C++; Vietnamese (native), English (IELTS 6.5 / VSTEP B2) \\
+ML / Vision: & PyTorch, TensorFlow, Scikit-learn, OpenCV, YOLOX, FastReID, ByteTrack, GradCAM \\
+LLM / GenAI: & RAG, LLM-as-judge evaluation (position swapping, cluster bootstrap, Holm correction), LaBSE, fastcoref, Claude Haiku 3.5, GPT-4o vision \\
+Engineering: & Docker, Git, GitLab CI, FastAPI, ezdxf, Nginx, MySQL, AWS S3 \\
+\end{tabularx}
+\end{rSection}
+
+\end{document}
