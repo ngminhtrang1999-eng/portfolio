@@ -72,13 +72,14 @@ export const siteConfig = {
     email: "ngminhtrang1999@gmail.com",
     linkedin: "https://www.linkedin.com/in/trang-minh-082bb5175/",
     github: "https://github.com/ngminhtrang1999-eng",
+    leetcode: "https://leetcode.com/u/Maccie/",
   },
 
   // --------------------------------------------------------------------------
   // 4. ABOUT — 2 to 4 sentences. Lead with what you build and what you want.
   // --------------------------------------------------------------------------
   aboutMe:
-    "I am an AI engineer at Aimesoft and a master's researcher in retrieval-augmented generation for literary English–Vietnamese translation. My first-author paper — a component-level ablation of a dynamic RAG pipeline — was accepted at CSoNet 2026 (Springer LNCS), and it pairs the translation system with an LLM-judge evaluation framework checked against a blind two-rater human study. At Aimesoft I build computer-vision systems for Japanese clients: multi-camera people counting with YOLOX, FastReID and ByteTrack, and AutoCAD drawing automation with FastAPI and ezdxf. I care about models that measure honestly and reach real users.",
+    "I am an AI engineer at Aimesoft and a master's researcher in retrieval-augmented generation for literary English–Vietnamese translation. My first-author paper — a component-level ablation of a dynamic RAG pipeline — was accepted at CSoNet 2026 (Springer LNCS), and it pairs the translation system with an LLM-judge evaluation framework checked against a blind two-rater human study. At Aimesoft I build computer-vision systems for Japanese clients: multi-camera people counting with YOLOX, FastReID and ByteTrack, and AutoCAD drawing automation with FastAPI and ezdxf. I practice algorithmic problem-solving daily on LeetCode to sharpen core fundamentals and cultivate independent engineering intuition beyond AI agents, and I care deeply about models that measure honestly and reach real users.",
 
   /** Short skill pills shown under the About text. Keep to ~10-14 items. */
   skills: [
